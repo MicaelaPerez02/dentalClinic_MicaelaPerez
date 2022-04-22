@@ -10,6 +10,5 @@ public interface IDentistService {
     void update(DentistDTO dentistDTO);
     void deleteById (Long id);
 
-    Set<DentistDTO> findAll();
-    Dentist findById (Long id);
+    Set<DentistDTO> getAll();
 }

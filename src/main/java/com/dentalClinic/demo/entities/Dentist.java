@@ -8,9 +8,10 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
 @Getter
 @Setter
+
+@Entity
 @Table(name = "dentist")
 public class Dentist {
 
@@ -19,7 +20,7 @@ public class Dentist {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String name;
-    private String lastname;
+    private String lastName;
     private String license;
 
     @OneToMany(mappedBy = "dentist", cascade = CascadeType.ALL)
@@ -29,17 +30,17 @@ public class Dentist {
     public Dentist() {
     }
 
-    public Dentist(String name, String lastname, String license, Set<Appointment> appointments) {
+    public Dentist(String name, String lastName, String license, Set<Appointment> appointments) {
         this.name = name;
-        this.lastname = lastname;
+        this.lastName = lastName;
         this.license = license;
         this.appointments = appointments;
     }
 
-    public Dentist(Long id, String name, String lastname, String license, Set<Appointment> appointments) {
+    public Dentist(Long id, String name, String lastName, String license, Set<Appointment> appointments) {
         this.id = id;
         this.name = name;
-        this.lastname = lastname;
+        this.lastName = lastName;
         this.license = license;
         this.appointments = appointments;
     }

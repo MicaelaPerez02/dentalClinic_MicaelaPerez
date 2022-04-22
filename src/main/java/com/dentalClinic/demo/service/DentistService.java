@@ -18,12 +18,13 @@ public class DentistService implements IDentistService {
     @Autowired
     private IDentistRepository dentistRepository;
 
-    public DentistService(IDentistRepository dentistRepository) {
-        this.dentistRepository = dentistRepository;
-    }
-
     @Autowired
     ObjectMapper mapper;
+
+    public DentistService(IDentistRepository dentistRepository, ObjectMapper mapper) {
+        this.dentistRepository = dentistRepository;
+        this.mapper = mapper;
+    }
 
     public void saveDentist (DentistDTO dentistDTO) {
         Dentist dentist = mapper.convertValue(dentistDTO, Dentist.class);
@@ -57,7 +58,7 @@ public class DentistService implements IDentistService {
     }
 
     @Override
-    public Set<DentistDTO> findAll() {
+    public Set<DentistDTO> getAll() {
         List<Dentist> dentists = dentistRepository.findAll();
         Set<DentistDTO> dentistDTO = new HashSet<>();
 
@@ -66,11 +67,4 @@ public class DentistService implements IDentistService {
 
         return dentistDTO;
     }
-
-    @Override
-    public Dentist findById (Long id){
-        Optional<Dentist> foundAppointment = dentistRepository.findById(id);
-        return foundAppointment.orElse(null);
-    }
-
 }

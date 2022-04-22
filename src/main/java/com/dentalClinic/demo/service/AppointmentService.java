@@ -21,6 +21,11 @@ public class AppointmentService implements IAppointmentService{
     @Autowired
     ObjectMapper mapper;
 
+    public AppointmentService(IAppointmentRepository appointmentRepository, ObjectMapper mapper) {
+        this.appointmentRepository = appointmentRepository;
+        this.mapper = mapper;
+    }
+
     public void saveAppointment(AppointmentDTO appointmentDTO){
         Appointment appointment = mapper.convertValue(appointmentDTO,Appointment.class);
         appointmentRepository.save(appointment);
@@ -52,7 +57,7 @@ public class AppointmentService implements IAppointmentService{
     }
 
     @Override
-    public Set<AppointmentDTO> findAll() {
+    public Set<AppointmentDTO> getAll() {
         List<Appointment> appointments = appointmentRepository.findAll();
         Set<AppointmentDTO> appointmentsDTO = new HashSet<>();
         for(Appointment appointment : appointments){
@@ -61,10 +66,5 @@ public class AppointmentService implements IAppointmentService{
         return appointmentsDTO;
     }
 
-    @Override
-    public Appointment findById (Long id){
-        Optional<Appointment> foundAppointment = appointmentRepository.findById(id);
-        return foundAppointment.orElse(null);
-    }
 
 }

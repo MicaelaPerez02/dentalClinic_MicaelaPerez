@@ -10,6 +10,5 @@ public interface IAppointmentService {
     void update(AppointmentDTO appointmentDTO);
     void deleteById (Long id);
 
-    Set<AppointmentDTO> findAll();
-    Appointment findById (Long id);
+    Set<AppointmentDTO> getAll();
 }

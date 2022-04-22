@@ -9,7 +9,6 @@ import java.util.Date;
 
 @Getter
 @Setter
-
 public class AppointmentDTO {
 
     private Long id;

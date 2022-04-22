@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class Patient {
     private String name;
     private String lastName;
     private Integer dni;
-    private LocalDate admissionDate;
+    private Date admissionDate;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
@@ -36,7 +37,7 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(String name, String lastName, Integer dni, LocalDate admissionDate, Address address, Set<Appointment> appointments) {
+    public Patient(String name, String lastName, Integer dni, Date admissionDate, Address address, Set<Appointment> appointments) {
         this.name = name;
         this.lastName = lastName;
         this.dni = dni;
@@ -45,7 +46,7 @@ public class Patient {
         this.appointments = appointments;
     }
 
-    public Patient(Long id, String name, String lastName, Integer dni, LocalDate admissionDate, Address address, Set<Appointment> appointments) {
+    public Patient(Long id, String name, String lastName, Integer dni, Date admissionDate, Address address, Set<Appointment> appointments) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;

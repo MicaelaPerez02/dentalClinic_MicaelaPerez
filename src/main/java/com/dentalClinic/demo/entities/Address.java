@@ -4,10 +4,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-
-@Entity
 @Getter
 @Setter
+
+@Entity
 @Table(name = "address")
 public class Address {
 

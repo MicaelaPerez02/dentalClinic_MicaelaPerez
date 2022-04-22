@@ -5,12 +5,11 @@ import com.dentalClinic.demo.model.PatientDTO;
 import com.dentalClinic.demo.repository.IPatientRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
+@Service
 public class PatientService implements IPatientService{
 
     @Autowired
@@ -18,6 +17,11 @@ public class PatientService implements IPatientService{
 
     @Autowired
     ObjectMapper mapper;
+
+    public PatientService(IPatientRepository patientRepository, ObjectMapper mapper) {
+        this.patientRepository = patientRepository;
+        this.mapper = mapper;
+    }
 
     public void savePatient(PatientDTO patientDTO){
         Patient patient = mapper.convertValue(patientDTO,Patient.class);
@@ -30,13 +34,12 @@ public class PatientService implements IPatientService{
     }
 
     @Override
-    public PatientDTO read(Long id) {
-        Optional<Patient> patient = patientRepository.findById(id);
-        PatientDTO patientDTO = null;
-        if(patient.isPresent()){
-            patientDTO = mapper.convertValue(patientDTO, PatientDTO.class);
-        }
-        return patientDTO;
+    public PatientDTO read(Long id) throws Exception {
+        Optional<Patient> found = patientRepository.findById(id);
+        if(found.isPresent())
+            return mapper.convertValue(found, PatientDTO.class);
+        else
+            throw new Exception("Patient Not Exist");
     }
 
     @Override
@@ -50,18 +53,13 @@ public class PatientService implements IPatientService{
     }
 
     @Override
-    public Set<PatientDTO> findAll() {
-        List<Patient> patients = patientRepository.findAll();
-        Set<PatientDTO> patientDTO = new HashSet<>();
-        for(Patient patient : patients){
-            patientDTO.add(mapper.convertValue(patient, PatientDTO.class));
-        }
-        return patientDTO;
+    public Collection<PatientDTO> getAll() {
+        List<Patient> allPatient = patientRepository.findAll();
+        Set<PatientDTO> allPatientDto = new HashSet<PatientDTO>();
+        for(Patient patient: allPatient)
+            allPatientDto.add(mapper.convertValue(patient,PatientDTO.class));
+
+        return allPatientDto;
     }
 
-    @Override
-    public Patient findById(Long id) {
-        Optional<Patient> foundAppointment = patientRepository.findById(id);
-        return foundAppointment.orElse(null);
-    }
 }

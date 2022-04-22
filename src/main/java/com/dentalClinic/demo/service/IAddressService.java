@@ -5,6 +5,6 @@ import com.dentalClinic.demo.model.AddressDTO;
 import java.util.Set;
 
 public interface IAddressService {
-    AddressDTO read(Long id);
-    Set<AddressDTO> findAll();
+    AddressDTO findById(Long id);
+    Set<AddressDTO> getAll();
 }
