@@ -1,6 +1,7 @@
 package com.dentalClinic.demo.service;
 
 import com.dentalClinic.demo.entities.Dentist;
+import com.dentalClinic.demo.exceptions.NotFoundException;
 import com.dentalClinic.demo.model.DentistDTO;
 import com.dentalClinic.demo.repository.IDentistRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,18 +33,21 @@ public class DentistService implements IDentistService {
     }
 
     @Override
-    public void create(DentistDTO dentistDTO) {
+    public void save(DentistDTO dentistDTO) {
         saveDentist(dentistDTO);
     }
 
     @Override
-    public DentistDTO read(Long id) {
+    public DentistDTO findById(Long id) throws NotFoundException {
         Optional<Dentist> dentist = dentistRepository.findById(id);
 
         DentistDTO dentistDTO = null;
-        if (dentist.isPresent())
+        if (dentist.isPresent()){
             dentistDTO = mapper.convertValue(dentist, DentistDTO.class);
-
+        }
+        else{
+            throw new NotFoundException("Dentist Not Exist");
+        }
         return dentistDTO;
     }
 
@@ -52,8 +56,10 @@ public class DentistService implements IDentistService {
         saveDentist(dentistDTO);
     }
 
+
     @Override
-    public void deleteById (Long id) {
+    public void deleteById (Long id) throws NotFoundException{
+        if (findById(id)!= null)
         dentistRepository.deleteById(id);
     }
 

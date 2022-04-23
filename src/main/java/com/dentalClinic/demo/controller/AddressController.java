@@ -1,5 +1,6 @@
 package com.dentalClinic.demo.controller;
 
+import com.dentalClinic.demo.exceptions.NotFoundException;
 import com.dentalClinic.demo.model.AddressDTO;
 import com.dentalClinic.demo.service.IAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class AddressController {
     IAddressService addressService;
 
     @GetMapping("/{id}")
-    public AddressDTO findAddressById (@PathVariable Long id){
+    public AddressDTO findAddressById (@PathVariable Long id) throws NotFoundException {
         return addressService.findById(id);
     }
 

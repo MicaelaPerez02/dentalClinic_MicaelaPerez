@@ -1,6 +1,8 @@
 package com.dentalClinic.demo.service;
 
 import com.dentalClinic.demo.entities.Appointment;
+import com.dentalClinic.demo.entities.Patient;
+import com.dentalClinic.demo.exceptions.NotFoundException;
 import com.dentalClinic.demo.model.AppointmentDTO;
 import com.dentalClinic.demo.repository.IAppointmentRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,18 +34,17 @@ public class AppointmentService implements IAppointmentService{
     }
 
     @Override
-    public void create(AppointmentDTO appointmentDTO) {
+    public void save(AppointmentDTO appointmentDTO) {
         saveAppointment(appointmentDTO);
     }
 
     @Override
-    public AppointmentDTO read(Long id) {
-        Optional<Appointment> appointment = appointmentRepository.findById(id);
-        AppointmentDTO appointmentDTO = null;
-        if(appointment.isPresent()){
-            appointmentDTO = mapper.convertValue(appointmentDTO, AppointmentDTO.class);
+    public AppointmentDTO findById(Long id) throws NotFoundException {
+        Optional<Appointment> found = appointmentRepository.findById(id);
+        if(found.isPresent()){
+            return  mapper.convertValue(found, AppointmentDTO.class);
         }
-        return appointmentDTO;
+        else throw new NotFoundException("Appointment Not Exist");
     }
 
     @Override
@@ -52,8 +53,12 @@ public class AppointmentService implements IAppointmentService{
     }
 
     @Override
-    public void deleteById(Long id) {
-        appointmentRepository.deleteById(id);
+    public void deleteById(Long id) throws NotFoundException{
+        Optional<Appointment> found = appointmentRepository.findById(id);
+        if (found.isPresent())
+            appointmentRepository.deleteById(id);
+        else
+            throw new NotFoundException("Appointment Not Exist");
     }
 
     @Override

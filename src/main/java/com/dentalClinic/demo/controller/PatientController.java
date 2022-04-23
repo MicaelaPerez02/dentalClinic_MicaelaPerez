@@ -1,5 +1,6 @@
 package com.dentalClinic.demo.controller;
 
+import com.dentalClinic.demo.exceptions.NotFoundException;
 import com.dentalClinic.demo.model.PatientDTO;
 import com.dentalClinic.demo.service.IPatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +13,19 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/patient")
 public class PatientController {
+
     @Autowired
     IPatientService patientService;
 
     @PostMapping
     public ResponseEntity<?> createPatient (@RequestBody PatientDTO patientDTO){
-        patientService.create(patientDTO);
-        return ResponseEntity.ok(HttpStatus.OK);
+        patientService.save(patientDTO);
+        return ResponseEntity.status(HttpStatus.OK).body("Patient created successfully");
     }
 
     @GetMapping("/{id}")
-    public PatientDTO findPatientById (@PathVariable Long id) throws Exception {
-        return patientService.read(id);
+    public ResponseEntity<PatientDTO> findById (@PathVariable Long id) throws NotFoundException {
+        return ResponseEntity.ok(patientService.findById(id));
     }
 
     @PutMapping
@@ -33,9 +35,9 @@ public class PatientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> removePatient(@PathVariable Long id){
+    public ResponseEntity<?> deletePatient(@PathVariable Long id) throws NotFoundException{
         patientService.deleteById(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body("Patient deleted successfully");
     }
 
     @GetMapping("/list")

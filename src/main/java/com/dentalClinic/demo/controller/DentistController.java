@@ -1,5 +1,6 @@
 package com.dentalClinic.demo.controller;
 
+import com.dentalClinic.demo.exceptions.NotFoundException;
 import com.dentalClinic.demo.model.DentistDTO;
 import com.dentalClinic.demo.service.IDentistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,15 @@ public class DentistController {
 
     @PostMapping
     public ResponseEntity<?> createDentist(@RequestBody DentistDTO dentistDTO){
-        dentistService.create(dentistDTO);
-        return ResponseEntity.ok(HttpStatus.OK);
+        dentistService.save(dentistDTO);
+        return ResponseEntity.status(HttpStatus.OK).body("Dentist created successfully");
     }
 
     @GetMapping("/{id}")
-    public DentistDTO findDentist(@PathVariable Long id){
-        return dentistService.read(id);
+    public ResponseEntity<DentistDTO> findDentistById(@PathVariable Long id) throws NotFoundException {
+        return ResponseEntity.ok(dentistService.findById(id));
     }
+
 
     @PutMapping
     public ResponseEntity<?> updateDentist(@RequestBody DentistDTO dentistDTO){
@@ -33,13 +35,13 @@ public class DentistController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> removeDentist(@PathVariable Long id){
+    public ResponseEntity<?> deleteDentist (@PathVariable Long id) throws NotFoundException{
         dentistService.deleteById(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body("Dentist deleted successfully");
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Collection<DentistDTO>> listDentists(){
+    public ResponseEntity<Collection<DentistDTO>> listDentists() {
         return ResponseEntity.ok(dentistService.getAll());
     }
 }

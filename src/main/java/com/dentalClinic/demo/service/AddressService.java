@@ -1,6 +1,7 @@
 package com.dentalClinic.demo.service;
 
 import com.dentalClinic.demo.entities.Address;
+import com.dentalClinic.demo.exceptions.NotFoundException;
 import com.dentalClinic.demo.model.AddressDTO;
 import com.dentalClinic.demo.repository.IAddressRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,13 +24,12 @@ public class AddressService implements IAddressService{
 
 
     @Override
-    public AddressDTO findById(Long id) {
-        Optional<Address> address = addressRepository.findById(id);
-        AddressDTO addressDTO = null;
-        if(address.isPresent()){
-            addressDTO = mapper.convertValue(address, AddressDTO.class);
-        }
-        return addressDTO;
+    public AddressDTO findById(Long id) throws NotFoundException  {
+        Optional<Address> found = addressRepository.findById(id);
+        if(found.isPresent())
+            return mapper.convertValue(found, AddressDTO.class);
+        else
+            throw new NotFoundException("Address not exist");
     }
 
     @Override
