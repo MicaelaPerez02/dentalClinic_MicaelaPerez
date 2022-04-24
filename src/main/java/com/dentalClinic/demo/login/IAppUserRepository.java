@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface IUserRepository extends JpaRepository<User, Long>{
-    @Query
-    Optional<User> findByEmail(String email);
+public interface IAppUserRepository extends JpaRepository<AppUser, Long>{
+
+    Optional<AppUser> findByEmail(String email);
 }

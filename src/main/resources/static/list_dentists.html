@@ -1,39 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dentist</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="./js/getDentist.js"></script>
-    <script type="text/javascript" src="./js/updateDentist.js"></script>
-    <script type="text/javascript" src="./js/deleteDentist.js"></script>
-    <title>Odontologos</title>
+    <script type="text/javascript" src="/jsDentist/get_od.js"></script>
+    <script type="text/javascript" src="/jsDentist/update_od.js"></script>
+    <script type="text/javascript" src="/js/delete_pelicula.js"></script>
 </head>
-
 <body>
 <div class="container">
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link" href="./saveDentist.html">Add new dentist</a>
+            <a class="nav-link" href="/index.html">Agregar nuevo dentista</a>
         </li>
-        <!-- <li class="nav-item">
-            <a class="nav-link" href="/">Todos los odontologos</a>
-        </li> -->
+        <li class="nav-item">
+            <a class="nav-link" href="/list_dentists.html">Todos los dentistas</a>
+        </li>
     </ul>
+
     <div id="div_dentist_table">
-        <h1>Odontologos</h1>
-        <div class="row col-md-6 table-responsive">
-            <table id="dentistTable" class="table table-striped">
+        <h1>Dentist</h1>
+        <div class="row col-md-10 table-responsive">
+            <table id="dentistsTable" class="table table-striped">
                 <thead>
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
-                    <th>LastName</th>
+                    <th>Last Name</th>
                     <th>License</th>
                     <th></th>
                 </tr>
@@ -46,33 +44,35 @@
     </div>
     <div class="row">
         <div class="col-sm-6" style="display: none;
-				background-color:#e6fffa; padding:20px; border-radius:3px" id="div_dentist_updating">
+											background-color:#e6fffa; padding:10px; border-radius:3px"
+             id="div_dentist_updating">
             <form id="update_dentist_form">
                 <div class="form-group">
-                    <label>Id:</label>
-                    <input type="text" class="form-control" id="dentist_id" readonly>
+                    <label >Id:</label>
+                    <input type="text" class="form-control" id="dentistId" readonly>
                 </div>
                 <div class="form-group">
-                    <label>Name:</label>
+                    <label >Name</label>
                     <input type="text" class="form-control" placeholder="name" id="name">
                 </div>
                 <div class="form-group">
-                    <label>LastName:</label>
+                    <label >Last Name:</label>
                     <input type="text" class="form-control" placeholder="lastName" id="lastName">
                 </div>
                 <div class="form-group">
-                    <label>License:</label>
+                    <label >License:</label>
                     <input type="text" class="form-control" placeholder="license" id="license">
+
+
+                <button type="submit" class="btn btn-primary">Update</button>
                 </div>
-
-
-                <button type="submit" class="btn btn-primary">Modify</button>
             </form>
-            <div id="response" style="display:none; margin:20px">
+
+            <div id="response" style="display:none; margin:10px">
             </div>
         </div>
     </div>
+    <hr>
 </div>
 </body>
-
 </html>

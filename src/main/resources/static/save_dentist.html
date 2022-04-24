@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Dentist</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/jsDentist/post_od.js"></script>
+</head>
+<body>
+<div class="container">
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" href="/list_dentist.html">List Dentist</a>
+        </li>
+    </ul>
+    <div class="row">
+        <div class="col-sm-7" style="background-color:#e6fffa; padding:10px; border-radius:3px">
+            <h3>Add Dentist</h3>
+            <form id="add_new_dentist">
+                <div class="form-group">
+                    <label class="control-label" for="Name">Name:</label>
+                    <input type="text" class="form-control" id="Name"
+                           placeholder="Ingrese el Nombre"
+                           name="Name" required></input>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="LastName">LastName:</label>
+                    <input type="text" class="form-control" id="LastName"
+                           placeholder="Ingrese el Apellido"
+                           name="LastName" required></input>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="License">License:</label>
+                    <input type="text" class="form-control" id="License"
+                           placeholder="Ingrese el Matricula"
+                           name="License" required></input>
+                </div>
+
+                <button type="submit" class="btn btn-danger"
+                        id="btn-add-new-appointment">Guardar</button>
+            </form>
+            <div id="response" style="display:none; margin-top:10px">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

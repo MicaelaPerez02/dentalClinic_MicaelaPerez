@@ -15,20 +15,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserService userService;
+    private AppUserService appUserService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
-                .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("localhost:8080/**").hasAuthority(UserRoles.ROLE_ADMIN.name())
-                .antMatchers("/appointment**").hasAnyAuthority(UserRoles.ROLE_USER.name(), UserRoles.ROLE_ADMIN.name())
-                .anyRequest().hasAuthority(UserRoles.ROLE_ADMIN.name())
-                .and()
-                .httpBasic();
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/user/**")
+                .permitAll()
+                //.antMatchers("localhost:8080/**").hasAuthority(AppUserRoles.ROLE_ADMIN.name())
+                //.antMatchers("/appointment**").hasAnyAuthority(AppUserRoles.ROLE_USER.name(), AppUserRoles.ROLE_ADMIN.name())
+                .anyRequest()
+                .authenticated().and()
+                //.hasAuthority(AppUserRoles.ROLE_ADMIN.name())
+                .formLogin();
+              //  .httpBasic();
     }
 
     @Override
@@ -40,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(bCryptPasswordEncoder);
-        provider.setUserDetailsService(userService);
+        provider.setUserDetailsService(appUserService);
         return provider;
     }
 

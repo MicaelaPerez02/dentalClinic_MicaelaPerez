@@ -13,32 +13,33 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Entity
-@Table(name = "user")
 @Getter
 @Setter
-public class User implements UserDetails {
+public class AppUser implements UserDetails {
 
         @Id
         @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
         private Long id;
-        private String name;
-        private String username;
-        private String email;
-        private String password;
-
         @Enumerated(EnumType.STRING)
-        private UserRoles userRoles;
+        private AppUserRoles appUserRoles;
+        private String email;
+        private String name;
+        private String password;
+        private String username;
 
-        public User() {
+
+
+
+        public AppUser() {
         }
 
-        public User(String name, String username, String email, String password, UserRoles userRoles) {
+        public AppUser(String name, String username, String email, String password, AppUserRoles appUserRoles) {
             this.name = name;
             this.username = username;
             this.email = email;
             this.password = password;
-            this.userRoles = userRoles;
+            this.appUserRoles = appUserRoles;
         }
 
         @Override
@@ -63,7 +64,7 @@ public class User implements UserDetails {
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userRoles.name());
+            SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(appUserRoles.name());
             return Collections.singletonList(grantedAuthority);
         }
     }

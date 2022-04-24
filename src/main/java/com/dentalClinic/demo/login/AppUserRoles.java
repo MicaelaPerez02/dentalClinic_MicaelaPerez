@@ -1,5 +1,5 @@
 package com.dentalClinic.demo.login;
 
-public enum UserRoles {
+public enum AppUserRoles {
     ROLE_USER, ROLE_ADMIN
 }
