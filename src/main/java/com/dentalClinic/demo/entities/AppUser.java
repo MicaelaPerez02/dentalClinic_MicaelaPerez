@@ -1,4 +1,4 @@
-package com.dentalClinic.demo.login;
+package com.dentalClinic.demo.entities;
 
 import lombok.Getter;
 import lombok.Setter;

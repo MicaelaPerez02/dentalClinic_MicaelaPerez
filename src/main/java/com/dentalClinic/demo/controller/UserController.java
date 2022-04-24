@@ -1,4 +1,4 @@
-package com.dentalClinic.demo.login;
+package com.dentalClinic.demo.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

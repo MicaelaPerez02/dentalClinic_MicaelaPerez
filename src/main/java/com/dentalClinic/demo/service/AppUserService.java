@@ -1,5 +1,6 @@
-package com.dentalClinic.demo.login;
+package com.dentalClinic.demo.service;
 
+import com.dentalClinic.demo.repository.IAppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

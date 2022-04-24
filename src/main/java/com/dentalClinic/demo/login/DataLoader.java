@@ -1,5 +1,8 @@
 package com.dentalClinic.demo.login;
 
+import com.dentalClinic.demo.entities.AppUser;
+import com.dentalClinic.demo.entities.AppUserRoles;
+import com.dentalClinic.demo.repository.IAppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
